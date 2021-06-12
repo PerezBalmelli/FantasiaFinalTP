@@ -1,0 +1,43 @@
+
+public class Reralopes extends Raza {
+	private int contadorAtaques = 1;
+	private boolean concentrado = true;
+	private int contadorConcentracion = 0;
+
+	public Reralopes() {
+		super(27, 53);
+	}
+
+	@Override
+	public void atacar(Raza enemigo) {
+		
+		if (contadorAtaques % 2 == 1) {
+			
+			if (concentrado) {
+				
+				contadorConcentracion++;
+				enemigo.recibirDanio(danioBasico * 2);
+				concentrado = contadorConcentracion < 3;
+				
+			} else {
+				
+				enemigo.recibirDanio(danioBasico);
+				
+			}
+		}
+		
+		contadorAtaques++;
+	}
+	
+	@Override
+	protected void recibirDanio(int danio) {
+		reducirVT(danio);
+		concentrado = false;
+	}
+	
+	@Override
+	public void descansar() {
+		concentrado = true;
+		contadorConcentracion = 0;
+	}
+}
